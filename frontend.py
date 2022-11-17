@@ -7,7 +7,8 @@ screen = pygame.display.set_mode((480, 480))
 pygame.display.set_caption("Snake game")
 
 run = True
-last_move = [0, 0] 
+next_move = [0, 0]
+current_move = [0, 0]
 i = 0
 
 while run:
@@ -21,20 +22,21 @@ while run:
     keys = pygame.key.get_pressed()
     screen.blit(background, (0, 0))
 
-    if keys[pygame.K_w] and last_move != [0, 1]:
-        last_move = [0, -1]
-    elif keys[pygame.K_a] and last_move != [1, 0]:
-        last_move = [-1, 0]
-    elif keys[pygame.K_s] and last_move != [0, -1]:
-        last_move = [0, 1]
-    elif keys[pygame.K_d] and last_move != [-1, 0]:
-        last_move = [1, 0]
+    if keys[pygame.K_w] and current_move != [0, 1]:
+        next_move = [0, -1]
+    elif keys[pygame.K_a] and current_move != [1, 0]:
+        next_move = [-1, 0]
+    elif keys[pygame.K_s] and current_move != [0, -1]:
+        next_move = [0, 1]
+    elif keys[pygame.K_d] and current_move != [-1, 0]:
+        next_move = [1, 0]
 
     if i % 30 == 0:
-        run = backend.move_snake(last_move)
+        run = backend.move_snake(next_move)
         backend.generate_fruit()
+        current_move = next_move[:]
         if not run: break
-    if last_move == [0, 0]:
+    if next_move == [0, 0]:
         pygame.draw.rect(screen, (255, 0, 0), pygame.Rect(30, 30, 30, 30))
         pygame.draw.rect(screen, (255, 0, 0), pygame.Rect(30, 60, 30, 30))
     else:
