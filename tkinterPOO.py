@@ -164,46 +164,128 @@ class TelaInicial:
         self.botaoR=Button(self.TelaInicial, text='Ranking')
         self.botaoR['font']=("Bahnschrift", "20",'bold')
         self.botaoR['width']=25
-        self.botaoR['command']= lambda:[self.TelaInicial.destroy(), Ranking()]
+        self.botaoR['command']= lambda:[self.TelaInicial.destroy(), RankingGeral()]
         self.botaoR['relief']='raised'
         self.botaoR['borderwidth']=5
         self.botaoR.place(x=200, y=420)
 
         self.TelaInicial.mainloop()
         
-class Ranking:
+class RankingGeral:
     def __init__(self, master=None):
-        self.Ranking=criarTelaCentralizada('Ranking')
+        self.RankingGeral=criarTelaCentralizada('Ranking Geral')
 
-        self.tituloRanking = Label(self.Ranking, text="Ranking", bg='#32CD32')
-        self.tituloRanking["font"] = ("Bahnschrift", "40","bold")
-        self.tituloRanking.place(x=290, y=30)
+        self.tituloRankingG = Label(self.RankingGeral, text="Ranking", bg='#32CD32')
+        self.tituloRankingG["font"] = ("Bahnschrift", "40","bold")
+        self.tituloRankingG.place(x=290, y=30)
 
-        self.botaoF=Button(self.Ranking, text='Nível Fácil')
+        self.botaoNormal=Button(self.RankingGeral, text='Normal')
+        self.botaoNormal['font']=("Bahnschrift", "20",'bold')
+        self.botaoNormal['width']=25
+        self.botaoNormal['command']= lambda:[self.RankingGeral.destroy(), RankingNormal()]
+        self.botaoNormal['relief']='raised'
+        self.botaoNormal['borderwidth']=5
+        self.botaoNormal.place(x=200, y=140)
+
+        self.botaoSwap=Button(self.RankingGeral, text='Swap')
+        self.botaoSwap['font']=("Bahnschrift", "20",'bold')
+        self.botaoSwap['width']=25
+        self.botaoSwap['command']= lambda:[self.RankingGeral.destroy(), RankingSwap()]
+        self.botaoSwap['relief']='raised'
+        self.botaoSwap['borderwidth']=5
+        self.botaoSwap.place(x=200, y=260)
+
+        self.botaoY=Button(self.RankingGeral, text='Yin Yang')
+        self.botaoY['font']=("Bahnschrift", "20",'bold')
+        self.botaoY['width']=25
+        self.botaoY['command']= lambda:[self.RankingGeral.destroy(), RankingYinYang()]
+        self.botaoY['relief']='raised'
+        self.botaoY['borderwidth']=5
+        self.botaoY.place(x=200, y=380)
+
+        self.botaoVoltar2=Button(self.RankingGeral, text='Voltar')
+        self.botaoVoltar2['font']=("Bahnschrift", "17",'bold')
+        self.botaoVoltar2['width']=15
+        self.botaoVoltar2['command']= lambda:[self.RankingGeral.destroy(),TelaInicial()]
+        self.botaoVoltar2['relief']='raised'
+        self.botaoVoltar2['borderwidth']=5
+        self.botaoVoltar2.place(x=290, y=490)
+
+class RankingNormal():
+    def __init__(self, master=None):
+        self.RankingNormal=criarTelaCentralizada('Ranking Normal')
+
+        self.tituloRankingN = Label(self.RankingNormal, text="Ranking", bg='#32CD32')
+        self.tituloRankingN["font"] = ("Bahnschrift", "40","bold")
+        self.tituloRankingN.place(x=290, y=30)
+
+        self.botaoF=Button(self.RankingNormal, text='Nível Fácil')
         self.botaoF['font']=("Bahnschrift", "20",'bold')
         self.botaoF['width']=25
-        self.botaoF['command']= lambda:[self.Ranking.destroy(), Facil()]
+        self.botaoF['command']= lambda:[self.RankingNormal.destroy(), Facil()]
         self.botaoF['relief']='raised'
         self.botaoF['borderwidth']=5
-        self.botaoF.place(x=200, y=180)
+        self.botaoF.place(x=200, y=140)
 
-        self.botaoM=Button(self.Ranking, text='Nível Médio')
+        self.botaoM=Button(self.RankingNormal, text='Nível Médio')
         self.botaoM['font']=("Bahnschrift", "20",'bold')
         self.botaoM['width']=25
-        self.botaoM['command']= lambda:[self.Ranking.destroy(), Medio()]
+        self.botaoM['command']= lambda:[self.RankingNormal.destroy(), Medio()]
         self.botaoM['relief']='raised'
         self.botaoM['borderwidth']=5
-        self.botaoM.place(x=200, y=300)
+        self.botaoM.place(x=200, y=260)
 
-        self.botaoD=Button(self.Ranking, text='Nível Difícil')
+        self.botaoD=Button(self.RankingNormal, text='Nível Difícil')
         self.botaoD['font']=("Bahnschrift", "20",'bold')
         self.botaoD['width']=25
-        self.botaoD['command']= lambda:[self.Ranking.destroy(), Dificil()]
+        self.botaoD['command']= lambda:[self.RankingNormal.destroy(), Dificil()]
         self.botaoD['relief']='raised'
         self.botaoD['borderwidth']=5
-        self.botaoD.place(x=200, y=420)
+        self.botaoD.place(x=200, y=380)
 
+        self.botaoVoltar2=Button(self.RankingNormal, text='Voltar')
+        self.botaoVoltar2['font']=("Bahnschrift", "17",'bold')
+        self.botaoVoltar2['width']=15
+        self.botaoVoltar2['command']= lambda:[self.RankingNormal.destroy(),RankingGeral()]
+        self.botaoVoltar2['relief']='raised'
+        self.botaoVoltar2['borderwidth']=5
+        self.botaoVoltar2.place(x=290, y=490)
+
+class RankingSwap():
+    def __init__(self, master=None):   #COLOCAR BANCO DE DADOS NESSAS CLASSES
+        self.RankingSwap=criarTelaCentralizada('Ranking-Swap')
+
+        self.tituloS=Label(self.RankingSwap, text='Ranking - Swap', bg='#32CD32')
+        self.tituloS['font']=("Bahnschrift", "40",'bold')
+        self.tituloS.place(x=200,y=30)
+
+
+        self.botaoVoltar2=Button(self.RankingSwap, text='Voltar')
+        self.botaoVoltar2['font']=("Bahnschrift", "17",'bold')
+        self.botaoVoltar2['width']=15
+        self.botaoVoltar2['command']= lambda:[self.RankingSwap.destroy(),RankingGeral()]
+        self.botaoVoltar2['relief']='raised'
+        self.botaoVoltar2['borderwidth']=5
+        self.botaoVoltar2.place(x=290, y=490)
     
+class RankingYinYang():
+    def __init__(self, master=None):   #COLOCAR BANCO DE DADOS NESSAS CLASSES
+        self.RankingYinYang=criarTelaCentralizada('Ranking-Fácil')
+
+        self.tituloY=Label(self.RankingYinYang, text='Ranking - Yin Yang', bg='#32CD32')
+        self.tituloY['font']=("Bahnschrift", "40",'bold')
+        self.tituloY.place(x=190,y=30)
+
+
+        self.botaoVoltar2=Button(self.RankingYinYang, text='Voltar')
+        self.botaoVoltar2['font']=("Bahnschrift", "17",'bold')
+        self.botaoVoltar2['width']=15
+        self.botaoVoltar2['command']= lambda:[self.RankingYinYang.destroy(),RankingGeral()]
+        self.botaoVoltar2['relief']='raised'
+        self.botaoVoltar2['borderwidth']=5
+        self.botaoVoltar2.place(x=290, y=490)
+
+
 class Facil():
     def __init__(self, master=None):   #COLOCAR BANCO DE DADOS NESSAS CLASSES
         self.Facil=criarTelaCentralizada('Ranking-Fácil')
@@ -212,18 +294,43 @@ class Facil():
         self.tituloF['font']=("Bahnschrift", "40",'bold')
         self.tituloF.place(x=150,y=30)
 
+
+        self.botaoVoltar2=Button(self.Facil, text='Voltar')
+        self.botaoVoltar2['font']=("Bahnschrift", "17",'bold')
+        self.botaoVoltar2['width']=15
+        self.botaoVoltar2['command']= lambda:[self.Facil.destroy(),RankingNormal()]
+        self.botaoVoltar2['relief']='raised'
+        self.botaoVoltar2['borderwidth']=5
+        self.botaoVoltar2.place(x=290, y=490)
+
 class Medio():
     def __init__(self, master=None):
         self.Medio=criarTelaCentralizada('Ranking-Médio')
 
-        self.tituloM=Label(self.Facil, text='Ranking - Nível Médio', bg='#32CD32')
+        self.tituloM=Label(self.Medio, text='Ranking - Nível Médio', bg='#32CD32')
         self.tituloM['font']=("Bahnschrift", "40",'bold')
         self.tituloM.place(x=150,y=30)
+
+        self.botaoVoltar2=Button(self.Medio, text='Voltar')
+        self.botaoVoltar2['font']=("Bahnschrift", "17",'bold')
+        self.botaoVoltar2['width']=15
+        self.botaoVoltar2['command']= lambda:[self.Medio.destroy(),RankingNormal()]
+        self.botaoVoltar2['relief']='raised'
+        self.botaoVoltar2['borderwidth']=5
+        self.botaoVoltar2.place(x=290, y=490)
 
 class Dificil():
     def __init__(self, master=None):
         self.Dificil=criarTelaCentralizada('Ranking-Difícil')
 
-        self.tituloD=Label(self.Facil, text='Ranking - Nível Médio', bg='#32CD32')
+        self.tituloD=Label(self.Dificil, text='Ranking - Nível Difícil', bg='#32CD32')
         self.tituloD['font']=("Bahnschrift", "40",'bold')
         self.tituloD.place(x=150,y=30)
+
+        self.botaoVoltar2=Button(self.Dificil, text='Voltar')
+        self.botaoVoltar2['font']=("Bahnschrift", "17",'bold')
+        self.botaoVoltar2['width']=15
+        self.botaoVoltar2['command']= lambda:[self.Dificil.destroy(),RankingNormal()]
+        self.botaoVoltar2['relief']='raised'
+        self.botaoVoltar2['borderwidth']=5
+        self.botaoVoltar2.place(x=290, y=490)
