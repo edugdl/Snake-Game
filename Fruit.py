@@ -22,8 +22,6 @@ class Fruit:
 
     def got_eaten(self):
         self.eaten = True
-        self.generate()
-        print("comeu")
     
     def get_x(self):
         return self.x
