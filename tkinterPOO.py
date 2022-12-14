@@ -189,7 +189,7 @@ class RankingGeral:
         self.botaoNormal['command']= lambda:[self.RankingGeral.destroy(), RankingNormal()]
         self.botaoNormal['relief']='raised'
         self.botaoNormal['borderwidth']=5
-        self.botaoNormal.place(x=200, y=140)
+        self.botaoNormal.place(x=200, y=180)
 
         self.botaoSwap=Button(self.RankingGeral, text='Swap')
         self.botaoSwap['font']=("Bahnschrift", "20",'bold')
@@ -197,15 +197,8 @@ class RankingGeral:
         self.botaoSwap['command']= lambda:[self.RankingGeral.destroy(), RankingSwap()]
         self.botaoSwap['relief']='raised'
         self.botaoSwap['borderwidth']=5
-        self.botaoSwap.place(x=200, y=260)
+        self.botaoSwap.place(x=200, y=310)
 
-        self.botaoY=Button(self.RankingGeral, text='Yin Yang')
-        self.botaoY['font']=("Bahnschrift", "20",'bold')
-        self.botaoY['width']=25
-        self.botaoY['command']= lambda:[self.RankingGeral.destroy(), RankingYinYang()]
-        self.botaoY['relief']='raised'
-        self.botaoY['borderwidth']=5
-        self.botaoY.place(x=200, y=380)
 
         self.botaoVoltar2=Button(self.RankingGeral, text='Voltar')
         self.botaoVoltar2['font']=("Bahnschrift", "17",'bold')
@@ -213,7 +206,7 @@ class RankingGeral:
         self.botaoVoltar2['command']= lambda:[self.RankingGeral.destroy(),TelaInicial()]
         self.botaoVoltar2['relief']='raised'
         self.botaoVoltar2['borderwidth']=5
-        self.botaoVoltar2.place(x=290, y=490)
+        self.botaoVoltar2.place(x=290, y=440)
 
 class RankingNormal():
     def __init__(self, master=None):
@@ -268,23 +261,6 @@ class RankingSwap():
         self.botaoVoltar2['font']=("Bahnschrift", "17",'bold')
         self.botaoVoltar2['width']=15
         self.botaoVoltar2['command']= lambda:[self.RankingSwap.destroy(),RankingGeral()]
-        self.botaoVoltar2['relief']='raised'
-        self.botaoVoltar2['borderwidth']=5
-        self.botaoVoltar2.place(x=290, y=490)
-    
-class RankingYinYang():
-    def __init__(self, master=None):   #COLOCAR BANCO DE DADOS NESSAS CLASSES
-        self.RankingYinYang=criarTelaCentralizada('Ranking-Fácil')
-
-        self.tituloY=Label(self.RankingYinYang, text='Ranking - Yin Yang', bg='#32CD32')
-        self.tituloY['font']=("Bahnschrift", "40",'bold')
-        self.tituloY.place(x=190,y=30)
-
-
-        self.botaoVoltar2=Button(self.RankingYinYang, text='Voltar')
-        self.botaoVoltar2['font']=("Bahnschrift", "17",'bold')
-        self.botaoVoltar2['width']=15
-        self.botaoVoltar2['command']= lambda:[self.RankingYinYang.destroy(),RankingGeral()]
         self.botaoVoltar2['relief']='raised'
         self.botaoVoltar2['borderwidth']=5
         self.botaoVoltar2.place(x=290, y=490)
@@ -353,7 +329,7 @@ class ModoJogo:
         self.botaoNormal['command']= lambda:[self.ModoJogo.destroy(), ModoNormal()]
         self.botaoNormal['relief']='raised'
         self.botaoNormal['borderwidth']=5
-        self.botaoNormal.place(x=200, y=140)
+        self.botaoNormal.place(x=200, y=180)
 
         self.botaoSwap=Button(self.ModoJogo, text='Swap')
         self.botaoSwap['font']=("Bahnschrift", "20",'bold')
@@ -361,15 +337,8 @@ class ModoJogo:
         self.botaoSwap['command']= lambda:[self.ModoJogo.destroy(), LinkarComJogo()]  
         self.botaoSwap['relief']='raised'
         self.botaoSwap['borderwidth']=5
-        self.botaoSwap.place(x=200, y=260)
+        self.botaoSwap.place(x=200, y=310)
 
-        self.botaoY=Button(self.ModoJogo, text='Yin Yang')
-        self.botaoY['font']=("Bahnschrift", "20",'bold')
-        self.botaoY['width']=25
-        self.botaoY['command']= lambda:[self.ModoJogo.destroy(), LinkarComJogo()]  
-        self.botaoY['relief']='raised'
-        self.botaoY['borderwidth']=5
-        self.botaoY.place(x=200, y=380)
 
         self.botaoVoltar2=Button(self.ModoJogo, text='Voltar')
         self.botaoVoltar2['font']=("Bahnschrift", "17",'bold')
@@ -377,7 +346,7 @@ class ModoJogo:
         self.botaoVoltar2['command']= lambda:[self.ModoJogo.destroy(),TelaInicial()]
         self.botaoVoltar2['relief']='raised'
         self.botaoVoltar2['borderwidth']=5
-        self.botaoVoltar2.place(x=290, y=490)
+        self.botaoVoltar2.place(x=290, y=440)
 
 class ModoNormal():
     def __init__(self, master=None):
