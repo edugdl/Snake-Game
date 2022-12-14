@@ -1,6 +1,7 @@
 from tkinter import *
 import tkinter.messagebox
 import database
+from game import Game
 
 def criarTelaCentralizada(nome):
     tela = Tk(className=f' {nome} ')
@@ -9,6 +10,15 @@ def criarTelaCentralizada(nome):
     tela.geometry(f'800x600+{int((ws/2)-(400))}+{int((hs/2)-(300))}')
     tela['background'] = "#32CD32"
     return tela
+
+user = ''
+def getUser():
+    global user
+    return user
+
+def setUser(new_user):
+    global user
+    user = new_user
 
 
 class Cadastro:
@@ -79,6 +89,7 @@ class Cadastro:
                 tkinter.messagebox.showerror(message = "Senha deve conter:\n6 caracteres\nNo mínimo 1 letra maiúscula\nNo mínimo 1 letra minúscula\nNo mínimo 1 número")
             else:
                 tkinter.messagebox.showinfo(message = "Conta cadastrada com sucesso !")
+                setUser(nome)
                 self.Cadastro.destroy()
                 ModoJogo()
 
@@ -136,7 +147,8 @@ class Login:
         if not login:
             tkinter.messagebox.showerror(message = "Usuário e/ou senha incorretos !")
         else:
-            tkinter.messagebox.showinfo(message = "Bem-vindo(a)")
+            tkinter.messagebox.showinfo(message = f"Bem-vindo(a) {user}")
+            setUser(user)
             self.Login.destroy()
             ModoJogo()
 
@@ -270,10 +282,12 @@ class Facil():
     def __init__(self, master=None):   #COLOCAR BANCO DE DADOS NESSAS CLASSES
         self.Facil=criarTelaCentralizada('Ranking-Fácil')
 
+        ranking = database.getRanking('Facil','NORMAL')
+        print(ranking)
+
         self.tituloF=Label(self.Facil, text='Ranking - Nível Fácil', bg='#32CD32')
         self.tituloF['font']=("Bahnschrift", "40",'bold')
         self.tituloF.place(x=150,y=30)
-
 
         self.botaoVoltar2=Button(self.Facil, text='Voltar')
         self.botaoVoltar2['font']=("Bahnschrift", "17",'bold')
@@ -286,6 +300,9 @@ class Facil():
 class Medio():
     def __init__(self, master=None):
         self.Medio=criarTelaCentralizada('Ranking-Médio')
+
+        ranking = database.getRanking('Medio','NORMAL')
+        print(ranking)
 
         self.tituloM=Label(self.Medio, text='Ranking - Nível Médio', bg='#32CD32')
         self.tituloM['font']=("Bahnschrift", "40",'bold')
@@ -303,6 +320,9 @@ class Dificil():
     def __init__(self, master=None):
         self.Dificil=criarTelaCentralizada('Ranking-Difícil')
 
+        ranking = database.getRanking('Dificil','NORMAL')
+        print(ranking)
+        
         self.tituloD=Label(self.Dificil, text='Ranking - Nível Difícil', bg='#32CD32')
         self.tituloD['font']=("Bahnschrift", "40",'bold')
         self.tituloD.place(x=150,y=30)
@@ -326,7 +346,7 @@ class ModoJogo:
         self.botaoNormal=Button(self.ModoJogo, text='Normal')
         self.botaoNormal['font']=("Bahnschrift", "20",'bold')
         self.botaoNormal['width']=25
-        self.botaoNormal['command']= lambda:[self.ModoJogo.destroy(), ModoNormal()]
+        self.botaoNormal['command']= lambda:[self.ModoJogo.destroy(), Velocidade('NORMAL')]
         self.botaoNormal['relief']='raised'
         self.botaoNormal['borderwidth']=5
         self.botaoNormal.place(x=200, y=180)
@@ -334,7 +354,7 @@ class ModoJogo:
         self.botaoSwap=Button(self.ModoJogo, text='Swap')
         self.botaoSwap['font']=("Bahnschrift", "20",'bold')
         self.botaoSwap['width']=25
-        self.botaoSwap['command']= lambda:[self.ModoJogo.destroy(), LinkarComJogo()]  
+        self.botaoSwap['command']= lambda:[self.ModoJogo.destroy(), Velocidade('SWAP')]  
         self.botaoSwap['relief']='raised'
         self.botaoSwap['borderwidth']=5
         self.botaoSwap.place(x=200, y=310)
@@ -348,9 +368,10 @@ class ModoJogo:
         self.botaoVoltar2['borderwidth']=5
         self.botaoVoltar2.place(x=290, y=440)
 
-class ModoNormal():
-    def __init__(self, master=None):
+class Velocidade():
+    def __init__(self, game_type):
         self.ModoNormal=criarTelaCentralizada('Modo Normal')
+        self.game_type = game_type
 
         self.tituloModoN = Label(self.ModoNormal, text="Modo Normal", bg='#32CD32')
         self.tituloModoN["font"] = ("Bahnschrift", "40","bold")
@@ -359,7 +380,7 @@ class ModoNormal():
         self.botaoF=Button(self.ModoNormal, text='Nível Fácil')
         self.botaoF['font']=("Bahnschrift", "20",'bold')
         self.botaoF['width']=25
-        self.botaoF['command']= lambda:[self.ModoNormal.destroy(), LinkarComJogo()]
+        self.botaoF['command']= lambda:[self.ModoNormal.destroy(), LinkarComJogo(4,self.game_type)]
         self.botaoF['relief']='raised'
         self.botaoF['borderwidth']=5
         self.botaoF.place(x=200, y=140)
@@ -367,7 +388,7 @@ class ModoNormal():
         self.botaoM=Button(self.ModoNormal, text='Nível Médio')
         self.botaoM['font']=("Bahnschrift", "20",'bold')
         self.botaoM['width']=25
-        self.botaoM['command']= lambda:[self.ModoNormal.destroy(), LinkarComJogo()]
+        self.botaoM['command']= lambda:[self.ModoNormal.destroy(), LinkarComJogo(3,self.game_type)]
         self.botaoM['relief']='raised'
         self.botaoM['borderwidth']=5
         self.botaoM.place(x=200, y=260)
@@ -375,7 +396,7 @@ class ModoNormal():
         self.botaoD=Button(self.ModoNormal, text='Nível Difícil')
         self.botaoD['font']=("Bahnschrift", "20",'bold')
         self.botaoD['width']=25
-        self.botaoD['command']= lambda:[self.ModoNormal.destroy(), LinkarComJogo()]
+        self.botaoD['command']= lambda:[self.ModoNormal.destroy(), LinkarComJogo(2,self.game_type)]
         self.botaoD['relief']='raised'
         self.botaoD['borderwidth']=5
         self.botaoD.place(x=200, y=380)
@@ -388,6 +409,12 @@ class ModoNormal():
         self.botaoVoltar2['borderwidth']=5
         self.botaoVoltar2.place(x=290, y=490)
 
-class LinkarComJogo():
-    pass #CLASSE SEM UTILIDADE, SÓ P TESTAR FUNCIONAMENTO E 
+def LinkarComJogo(speed,game_type):
+    game = Game(game_type,speed)
+    score = game.game()
+    difficulties = ['Dificil','Medio','Facil']
+    database.saveGameScore(getUser(),score,game_type,difficulties[speed-2])
+    ModoJogo()
+        
+     #CLASSE SEM UTILIDADE, SÓ P TESTAR FUNCIONAMENTO E 
 #FICAR FACIL DE ACHAR DEPOIS ONDE PRECISA DIRECIONAR P TELA DO PYGAME

@@ -1,5 +1,3 @@
-import pyautogui 
-
 class SnakeBody:
     def __init__(self, position, map_grid, child):
         self.position = position
@@ -73,6 +71,7 @@ class SnakeHead(SnakeBody):
         if "Fruit" in str(type(self.map_grid[self.position[1]][self.position[0]])):
             self.map_grid[self.position[1]][self.position[0]].got_eaten()
             self.grow()
+            self.score += 1
         self.map_grid[self.position[1]][self.position[0]] = self
         return True
 

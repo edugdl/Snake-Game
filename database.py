@@ -24,3 +24,17 @@ def login(user, password):
         if user_['name'] == user and user_['password'] == password:
             return True
     return False
+
+def saveGameScore(user,score,game_type,difficulty):
+    scoresDb = get_database()['scores']
+    scoresDb.insert_one({'game_type':game_type,'score':score,'user':user,'difficulty':difficulty})
+    return True
+
+def getRanking(difficulty,game_type):
+    scoresDb = get_database()['scores']
+    scoresList = scoresDb.find()
+    ranking = []
+    for score in scoresList:
+        if score['game_type'] == game_type and score['difficulty'] == difficulty:
+            ranking.append({'user':score['user'],'score':score['score']})
+    return sorted(ranking, key=lambda score: score['score'], reverse=True)
