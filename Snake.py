@@ -36,10 +36,6 @@ class SnakeBody:
     def get_direction(self):
         x_p, y_p = self.parent.get_position()
         x, y = self.get_position()
-        if x_p - x > 1 or x_p - x < -1:
-           return [(x_p - x) / abs(x_p - x), y_p - y]
-        elif y_p - y > 1 or y_p - y < -1:
-           return [x_p - x, (y_p - y) / abs(y_p - y)] 
         return [x_p - x, y_p - y]
 
     def grow(self):
@@ -98,34 +94,39 @@ class SwapSnake(SnakeHead):
     def grow(self):
         tail = self.get_tail()
         head_direction = tail.get_direction()[:]
+        
         current_body = self.child
+        tail.set_parent(current_body)
         current_body.set_parent(current_body.get_child())
         current_body.set_child(tail)
         last_body = current_body
-        if current_body.get_parent() == current_body.get_child():
-            current_body.set_parent(self)
-        else:
-            while last_body.get_parent():
-                current_body = last_body.get_parent()
-                current_body.set_parent(current_body.get_child())
-                current_body.set_child(last_body)
-                last_body = current_body
-                if last_body.get_parent() == tail:
-                    last_body.set_parent(self)
-                    break
-            self.child = last_body
+
+        while True:
+            if last_body.get_parent() == last_body.get_child():
+                last_body.set_parent(self)
+                break
+            body = last_body.get_parent()
+            last_child = body.get_child()
+            body.set_child(body.get_parent())
+            body.set_parent(last_child)
+            if body.get_parent() == tail:
+                body.set_parent(self)
+                self.child = body
+                break
+            last_body = body
+
         temp = tail.get_position()[:]
         tail.set_position(self.position)
         self.position = temp
         self.direction = [head_direction[0] * -1, head_direction[1] * -1]
         self.child.grow()
-    
+
     def get_tail(self):
         tail = self.child
         while tail.child:
             tail = tail.child
         return tail
-    
+
     def get_next_move(self):
         return self.direction
 
