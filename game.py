@@ -50,8 +50,14 @@ class Game:
         self.body = SnakeBody([1,1], self.MAP_GRID, self.tail)
         if self.game_type == 'SWAP':
             self.head = SwapSnake([2,1], self.MAP_GRID, self.body)
+            apple = pygame.image.load("appleSwap.png")
+            head = pygame.image.load("snakeHeadSwap.png")
+            color = (0,255,0)
         else:
             self.head = SnakeHead([2,1], self.MAP_GRID, self.body)
+            apple = pygame.image.load("apple.png")
+            head = pygame.image.load("snakeHead.png")
+            color = (255,0,0)
 
         self.MAP_GRID[1][0] = self.tail
         self.MAP_GRID[1][1] = self.body
@@ -90,16 +96,23 @@ class Game:
             for row in self.get_map_grid():
                 for snake_body in row:
                     if str(type(snake_body)) == "<class 'Fruit.Fruit'>":
-                        pygame.draw.circle(screen, (0,0,255), (snake_body.get_y()*30 + 15, snake_body.get_x()*30 + 15), 15)
+                        screen.blit(apple, [snake_body.get_y()*30, snake_body.get_x()*30])
                     elif snake_body:
                         x = snake_body.get_position()[0]
                         y = snake_body.get_position()[1]
                         x_d = snake_body.get_direction()[0]
                         y_d = snake_body.get_direction()[1]
                         if next_move == [0, 0]:
-                            pygame.draw.rect(screen, (255, 0, 0), pygame.Rect(x*30, y*30, 30, 30))
+                            if str(type(snake_body)) in ["<class 'Snake.SnakeHead'>","<class 'Snake.SwapSnake'>"]:
+                                screen.blit(head, [x*30,y*30])
+                            else:
+                                pygame.draw.rect(screen, color, pygame.Rect(x*30, y*30, 30, 30))
                         else:
-                            pygame.draw.rect(screen, (255, 0, 0), pygame.Rect((x*30) + (x_d*(i%30)), (y*30) + (y_d*(i%30)), 30, 30))
+                            if str(type(snake_body)) in ["<class 'Snake.SnakeHead'>","<class 'Snake.SwapSnake'>"]:
+                                rotated_head = pygame.transform.rotate(head, (y_d*-90 + 90*x_d*(x_d - 1)))
+                                screen.blit(rotated_head, [(x*30) + (x_d*(i%30)), (y*30) + (y_d*(i%30))])
+                            else:
+                                pygame.draw.rect(screen, color, pygame.Rect((x*30) + (x_d*(i%30)), (y*30) + (y_d*(i%30)), 30, 30))
             i+=1
             pygame.display.update()
         pygame.quit()
